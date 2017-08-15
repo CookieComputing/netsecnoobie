@@ -12,6 +12,10 @@ I was bored today and I wanted to do something interesting, so I decided to atta
 
 It turns out that he forgot to add a captcha to his website, so as a practical joke, I decided to whip up something to tell him to work on that captcha ;)
 
+![image](https://user-images.githubusercontent.com/24576987/29300167-d9618552-8141-11e7-8051-3e11f386a85a.png)
+
+Using Burp, I was able to find the parameters sent in the POST request, and I crafted my exploit to replicate a user.
+
 The goal was to create a program that would flood his database with a bunch of useless accounts, just to remind him to fix up his website. After creating a proof of concept via test.py, I then crafted a quick exploit that would send a bunch of payloads to his website and create a bunch of unnecessary accounts.
 
 The exploit file could be optimized infinitely, but I wanted to get it out as soon as possible to just let him know.
