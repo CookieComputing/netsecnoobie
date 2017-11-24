@@ -7,17 +7,17 @@ We are asked to solve this challenge:
 In addition to this challenge, we are given the following code:
 
 ```
-foo:
-    pushl %ebp
-    mov %esp, %ebp
-    pushl %edi
-    pushl %esi
-    pushl %ebx
-    sub $0xf4, %esp
-    movl $0x1, (%esp)
-    movl $0x2, 0x4(%esp)
-    movl $0x3, 0x8(%esp)
-    movl $0x4, 0xc(%esp)
+    foo:
+        pushl %ebp
+        mov %esp, %ebp
+        pushl %edi
+        pushl %esi
+        pushl %ebx
+        sub $0xf4, %esp
+        movl $0x1, (%esp)
+        movl $0x2, 0x4(%esp)
+        movl $0x3, 0x8(%esp)
+        movl $0x4, 0xc(%esp)
 ```
 
 I had to re-read the challenge a few times before I got what the challenge was looking for, but the point of the challenge was to calculate the literal byte difference between the original `ebp` (aka the return address) and the esp found at the end of the instruction. One thing to note, however, was that it was not the return address of the next instruction as you would expect in a normal assembly function.

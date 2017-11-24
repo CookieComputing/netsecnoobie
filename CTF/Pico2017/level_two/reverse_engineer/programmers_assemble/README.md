@@ -6,27 +6,27 @@ We are given the following challenge:
 We are also given the following code:
 
 ```
-.global main
+    .global main
 
-main:
-    mov $XXXXXXX, %eax
-    mov $0, %ebx
-    mov $0x6, %ecx
-loop:
-    test %eax, %eax
-    jz fin
-    add %ecx, %ebx
-    dec %eax
-    jmp loop
-fin:
-    cmp $0x55bc, %ebx
-    je good
-    mov $0, %eax
-    jmp end
-good:
-    mov $1, %eax
-end:
-    ret
+    main:
+        mov $XXXXXXX, %eax
+        mov $0, %ebx
+        mov $0x6, %ecx
+    loop:
+        test %eax, %eax
+        jz fin
+        add %ecx, %ebx
+        dec %eax
+        jmp loop
+    fin:
+        cmp $0x55bc, %ebx
+        je good
+        mov $0, %eax
+        jmp end
+    good:
+        mov $1, %eax
+    end:
+        ret
 ```
 
 The goal is to find a `eax` value such that the program will return one. But what does all of this mean? Let's break it down
@@ -59,20 +59,20 @@ So the function looks like it is looping, hence the function name `loop`. But ho
 `fin` will return `1` if and only if `ebx` yields `0x55bc`. How can `ebx` become that value? Let's look at loop again and see what it does for us:
 
 ```
-loop:
-    test %eax, %eax
-    jz fin
-    add %ecx, %ebx
-    dec %eax
-    jmp loop
+    loop:
+        test %eax, %eax
+        jz fin
+        add %ecx, %ebx
+        dec %eax
+        jmp loop
 ```
 
 So it looks like loop will add `ecx` to `ebx` every time and then call loop again, this time with `eax` decremented. This means that the function is essentially doing something like this:
 
-```
-for (int i = x; i < 0; i--) {
-    ebx += ecx;
-}
+```a
+    for (int i = x; i < 0; i--) {
+        ebx += ecx;
+    }
 ```
 
 Some simple math will help us find the answer then. If `ecx` is `0x6`, and `ebx` has to be `0x55bc`, then `0x55bc / 0x6 = 0xe4a`
